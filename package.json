@@ -1,0 +1,19 @@
+{
+  "name": "mpn-lookup",
+  "version": "1.0.0",
+  "description": "A simple tool for when you don't want to use or can't find the reference PDF with the related Quanti Tray MPN's",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --require ts-node/register test/mpn.test.ts",
+    "tsc": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/mocha": "^10.0.1",
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  }
+}
