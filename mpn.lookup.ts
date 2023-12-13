@@ -2603,13 +2603,19 @@ const mpnLegio: Mpn[] = [
 ];
 
 export function getQtMpn (inCount: number) {
+  if (inCount < 0 || inCount > 51)
+    return undefined;
   return mpn[inCount];
 }
 
 export function getQt2KMpn (inLargePos: number, inSmallPos: number) {
+  if (inLargePos > 49 || inLargePos < 0 || inSmallPos > 48 || inSmallPos < 0)
+    return undefined;
   return mpn2k[(inLargePos * 49) + inSmallPos];
 }
 
 export function getQtLegio (inLargePos: number, inSmallPos: number) {
+  if (inLargePos < 0 || inLargePos > 6 || inSmallPos < 0 || inSmallPos > 90)
+    return undefined;
   return mpnLegio[inLargePos][inSmallPos]
 }
