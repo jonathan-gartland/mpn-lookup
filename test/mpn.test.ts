@@ -26,19 +26,39 @@ describe('Test MPN Lookup for QT, QT2K, QT Legio. tables', () => {
     })
   });
 
-  // it('tests the Quanti Tray 2000 Lookup values', async () => {
-  //   expect(getQt2KMpn(22, 23)).to.be.an('array');
-  //   assert.deepEqual(getQt2KMpn(22, 23), [ 60.8, 45.7, 78.6 ])
-  //   getQt2KMpn(22, 23).should.have.lengthOf(3);
-  //   getQt2KMpn(49, 48).should.contain('infinite');
-  //
-  //   expect(getQt2KMpn(49, 49)).to.be.undefined;
-  //   expect(getQt2KMpn(50, 48)).to.be.undefined;
-  //   expect(getQt2KMpn(-1, 48)).to.be.undefined;
-  //   expect(getQt2KMpn(49, -1)).to.be.undefined;
-  //
-  // });
-  //
+  it('tests the Quanti Tray 2000 Lookup values',  async () => {
+    let mpnVal =  getQt2KMpn(22, 23);
+    if (mpnVal){
+      assert.equal(3, mpnVal.length)
+      assert.deepEqual(mpnVal, [ 60.8, 45.7, 78.6 ])
+      expect(mpnVal).to.be.an('array');
+    }
+    mpnVal = getQt2KMpn(49, 48);
+    if (mpnVal){
+      assert.deepEqual(mpnVal, [ '>2419.6', 1439.5, 'infinite' ])
+      expect(mpnVal[2].valueOf()).is.equal('infinite');
+    }
+
+    for (let i = 0; i < 50; i++) {
+      for ( let j = 0; j< 49; j++) {
+        mpnVal = getQt2KMpn(i, j);
+        if (mpnVal) {
+          expect(mpnVal).to.exist;
+        }
+      }
+    }
+    [[-1, 48], [50, 48], [49, -1], [49, 49]].forEach((pos) => {
+      let inL = pos[0];
+      let inS = pos[1];
+      mpnVal = getQt2KMpn(inL, inS);
+      if(mpnVal) {
+        throw new Error('should be undefined, valid input used for invalid input test');
+      }
+      else
+        expect(mpnVal).to.be.undefined;
+    });
+  });
+
   // it('tests the Quanti Tray Legiolert Lookup values', async () => {
   //   expect(getQtLegio(0, 1)).to.be.an('number');
   //   assert.equal(getQtLegio(0, 0).toString(), "<1")
