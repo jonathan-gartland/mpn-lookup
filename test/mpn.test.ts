@@ -1,6 +1,7 @@
 import { getQtMpn, getQt2KMpn, getQtLegio } from '../mpn.lookup';
 import { expect, assert, should } from 'chai';
 should();
+
 describe('Test MPN Lookup for QT, QT2K, QT Legio. tables', () => {
   describe('QuantiTray Lookup tests', () => {
     let mpnVal;
@@ -76,7 +77,7 @@ describe('Test MPN Lookup for QT, QT2K, QT Legio. tables', () => {
     });
   });
 
-  describe('test 3', () => {
+  describe('Test Legiolert Lookup', () => {
     let mpnVal;
     it('Test Valid input provides valid result', () => {
       for (let i = 0; i < 90; i++) {
