@@ -46,5 +46,5 @@ For the work I used either of the following:
 ![image](mpn_examples.png)  
   
   
-## Example App that uses the mpn.lookup library  
+## Example App that uses the mpn-lookup library  
 [https://jonathan-gartland.github.io/practice-pages/](https://jonathan-gartland.github.io/practice-pages/)
