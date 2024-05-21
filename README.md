@@ -47,4 +47,4 @@ For the work I used either of the following:
   
   
 ## Example App that uses the mpn-lookup library  
-[https://jonathan-gartland.github.io/practice-pages/](https://jonathan-gartland.github.io/practice-pages/)
+[https://mpn-nextjs.vercel.app/mpn-lookup](https://mpn-nextjs.vercel.app/mpn-lookup)
