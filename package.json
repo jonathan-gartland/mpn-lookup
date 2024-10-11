@@ -1,6 +1,6 @@
 {
   "name": "mpn-lookup",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A simple tool to replace user dependency of reference PDF with the related Quanti Tray MPN's",
   "main": "index.js",
   "scripts": {
