@@ -40,5 +40,6 @@
       "prettier --write",
       "eslint --max-warnings 0"
     ]
-  }
+  },
+  "types": "types/index.d.ts"
 }

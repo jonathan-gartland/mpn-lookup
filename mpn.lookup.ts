@@ -1,4 +1,6 @@
-type Mpn = Array<(string | number) | number | (string | number)> | undefined;
+export type Mpn =
+  | Array<(string | number) | number | (string | number)>
+  | undefined;
 
 const mpn: Mpn[] = [
   ['<1.0', 0, 3.7],
