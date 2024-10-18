@@ -39,5 +39,8 @@
       "eslint --max-warnings 0"
     ]
   },
-  "types": "types/index.d.ts"
+  "types": "types/index.d.ts",
+  "dependencies": {
+    "commitlint": "^19.5.0"
+  }
 }
