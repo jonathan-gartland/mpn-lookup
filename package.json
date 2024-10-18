@@ -49,5 +49,10 @@
   "dependencies": {
     "@commitlint/config-conventional": "^19.5.0",
     "commitlint": "^19.5.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/user/repo-name.git"
+  },
+  "packageManager": "pnpm@9.8.0"
 }
