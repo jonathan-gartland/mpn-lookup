@@ -6,7 +6,13 @@
   "scripts": {
     "test": "mocha --require ts-node/register test/mpn.test.ts",
     "tsc": "tsc",
-    "prepare": "husky install"
+    "prepare": "husky",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "type-check": "tsc  --noemit",
+    "lint:translations": "eslint ./src/translations/ --fix --ext .json  ",
+    "check-all": "pnpm run lint && pnpm run type-check && pnpm run lint:translations && pnpm run test",
+    "test:ci": "pnpm run test --coverage",
+    "test:watch": "pnpm run test --watch"
   },
   "keywords": [],
   "author": "",
@@ -41,6 +47,12 @@
   },
   "types": "types/index.d.ts",
   "dependencies": {
+    "@commitlint/config-conventional": "^19.5.0",
     "commitlint": "^19.5.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/user/repo-name.git"
+  },
+  "packageManager": "pnpm@9.8.0"
 }
