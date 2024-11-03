@@ -5,12 +5,17 @@
   "main": "./dist/mpn.lookup.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "mocha --require ts-node/register test/mpn.test.ts",
     "tsc": "tsc",
     "prepare": "husky",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint-staged": "lint-staged",
+    "format": "prettier --check .",
+  "format:fix": "prettier --write --list-different .",
     "type-check": "tsc  --noemit",
     "lint:translations": "eslint ./src/translations/ --fix --ext .json  ",
     "check-all": "pnpm run lint && pnpm run type-check && pnpm run lint:translations && pnpm run test",
