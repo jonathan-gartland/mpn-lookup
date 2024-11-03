@@ -2,7 +2,10 @@
   "name": "mpn-lookup",
   "version": "1.0.11",
   "description": "A simple tool to replace user dependency of reference PDF with the related Quanti Tray MPN's",
-  "main": "index.js",
+  "main": "./dist/mpn.lookup.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
   "scripts": {
     "test": "mocha --require ts-node/register test/mpn.test.ts",
     "tsc": "tsc",
@@ -12,7 +15,8 @@
     "lint:translations": "eslint ./src/translations/ --fix --ext .json  ",
     "check-all": "pnpm run lint && pnpm run type-check && pnpm run lint:translations && pnpm run test",
     "test:ci": "pnpm run test --coverage",
-    "test:watch": "pnpm run test --watch"
+    "test:watch": "pnpm run test --watch",
+    "build": "tsup"
   },
   "keywords": [],
   "author": "",
@@ -46,7 +50,6 @@
       "eslint --max-warnings 0"
     ]
   },
-  "types": "types/index.d.ts",
   "dependencies": {
     "@commitlint/config-conventional": "^19.5.0",
     "commitlint": "^19.5.0"

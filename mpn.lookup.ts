@@ -1,4 +1,4 @@
-export type Mpn =
+type Mpn =
   | Array<(string | number) | number | (string | number)>
   | undefined;
 
