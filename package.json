@@ -11,11 +11,11 @@
   "scripts": {
     "test": "mocha --require ts-node/register test/mpn.test.ts",
     "tsc": "tsc",
-    "prepare": "husky",
+    "prepare": "husky && husky install",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint-staged": "lint-staged",
     "format": "prettier --check .",
-  "format:fix": "prettier --write --list-different .",
+    "format:fix": "prettier --write --list-different .",
     "type-check": "tsc  --noemit",
     "lint:translations": "eslint ./src/translations/ --fix --ext .json  ",
     "check-all": "pnpm run lint && pnpm run type-check && pnpm run lint:translations && pnpm run test",
@@ -53,7 +53,8 @@
     "*.{ts}": [
       "prettier --write",
       "eslint --max-warnings 0"
-    ]
+    ],
+    "*.{js,jsx,ts,tsx}": "eslint --cache --fix"
   },
   "dependencies": {
     "@commitlint/config-conventional": "^19.5.0",
