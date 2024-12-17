@@ -1,7 +1,5 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-. "$(dirname "$0")/common.sh"
-
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
 
 echo "===\n>> Checking branch name..."
 
@@ -22,5 +20,5 @@ echo ">> Finish checking branch name"
 echo ">> Linting your files and fixing them if needed..."
 
 pnpm type-check
-pnpm lint-staged
+pnpm dlx lint-staged
 pnpm test

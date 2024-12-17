@@ -1,7 +1,7 @@
-# mpn-lookup  
-  
-A simple tool for when you don't want to use, or simply can't find, the various reference PDF's for the QuantiTray system.  
-  
+# mpn-lookup
+
+A simple tool for when you don't want to use, or simply can't find, the various reference PDF's for the QuantiTray system.
+
 Built with:  
 ![Mocha](https://img.shields.io/badge/-Mocha-%238D6748?&style=for-the-badge&logo=Mocha&logoColor=white)
 ![Chai](https://img.shields.io/badge/chai.js-323330?style=for-the-badge&logo=chai&logoColor=red)
@@ -15,8 +15,8 @@ For the work I used either of the following:
 ![Intellij](https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
 ![VSCode](https://img.shields.io/badge/-Visual%20Studio%20Code-%233178C6?logo=visual-studio-code)
 
-
 ## Try it out:
+
 ```bash
 1. git clone https://github.com/jonathan-gartland/mpn-lookup.git
 2. cd mpn-lookup
@@ -26,25 +26,12 @@ For the work I used either of the following:
 6. > getQtMpn(0)
 ```
 
-## Folder structure:
-```
-.
-├── LICENSE
-├── README.md
-├── mpn.lookup.ts
-├── package-lock.json
-├── package.json
-├── test
-│   └── mpn.test.ts
-└── tsconfig.json
-
-```
-
-
 ## Example use in REPL:
-![image](mpn_out.png)  
-![image](mpn_examples.png)  
-  
-  
-## Example App that uses the mpn-lookup library  
-[https://mpn-nextjs.vercel.app/mpn-lookup](https://mpn-nextjs.vercel.app/mpn-lookup)
+
+![image](./mpn_out.png)  
+![image](./mpn_examples.png)
+
+## Example Apps that uses the mpn-lookup library
+
+[https://github.com/jonathan-gartland/mpn-lookup-nextjs](https://github.com/jonathan-gartland/mpn-lookup-nextjs)  
+[https://github.com/jonathan-gartland/MpnLookupRN](https://github.com/jonathan-gartland/MpnLookupRN)
