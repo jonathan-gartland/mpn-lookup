@@ -58,7 +58,8 @@
   },
   "dependencies": {
     "@commitlint/config-conventional": "^19.5.0",
-    "commitlint": "^19.5.0"
+    "commitlint": "^19.5.0",
+    "tsup": "^8.3.5"
   },
   "repository": {
     "type": "git",
