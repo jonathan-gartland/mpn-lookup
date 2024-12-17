@@ -31,6 +31,7 @@ For the work I used either of the following:
 ![image](./mpn_out.png)  
 ![image](./mpn_examples.png)
 
-## Example App that uses the mpn-lookup library
+## Example Apps that uses the mpn-lookup library
 
-[https://mpn-nextjs.vercel.app/mpn-lookup](https://mpn-nextjs.vercel.app/mpn-lookup)
+[https://github.com/jonathan-gartland/mpn-lookup-nextjs](https://github.com/jonathan-gartland/mpn-lookup-nextjs)  
+[https://github.com/jonathan-gartland/MpnLookupRN](https://github.com/jonathan-gartland/MpnLookupRN)
