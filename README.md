@@ -99,8 +99,8 @@ pnpm run check-all
 
 ## Example use in REPL:
 
-![image](./mpn_out.png)  
-![image](./mpn_examples.png)
+![MPN Output Example](./public/mpn_out.png)  
+![MPN Examples](./public/mpn_examples.png)
 
 ## Example Apps that uses the mpn-lookup library
 

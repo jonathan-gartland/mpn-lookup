@@ -6,7 +6,8 @@
   "module": "./dist/mpn.lookup.mjs",
   "types": "./dist/mpn.lookup.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "public/*.png"
   ],
   "scripts": {
     "test": "mocha --require ts-node/register test/mpn.test.ts",
