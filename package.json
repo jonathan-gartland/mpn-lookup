@@ -1,10 +1,10 @@
 {
   "name": "mpn-lookup",
   "version": "1.0.15",
-  "description": "A simple tool to replace user dependency of reference PDF with the related Quanti Tray MPN's",
+  "description": "A TypeScript library for Most Probable Number (MPN) lookups in microbiological testing, supporting QuantiTray, QuantiTray2000, and Legionella formats",
   "main": "./dist/mpn.lookup.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "module": "./dist/mpn.lookup.mjs",
+  "types": "./dist/mpn.lookup.d.ts",
   "files": [
     "dist"
   ],
@@ -17,14 +17,22 @@
     "format": "prettier --check .",
     "format:fix": "prettier --write --list-different .",
     "type-check": "tsc  --noemit",
-    "lint:translations": "eslint ./src/translations/ --fix --ext .json  ",
-    "check-all": "pnpm run lint && pnpm run type-check && pnpm run lint:translations && pnpm run test",
+    "check-all": "pnpm run lint && pnpm run type-check && pnpm run test",
     "test:ci": "pnpm run test --coverage",
     "test:watch": "pnpm run test --watch",
     "build": "tsup"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "mpn",
+    "most-probable-number",
+    "microbiology",
+    "quantitray",
+    "legionella",
+    "water-testing",
+    "bacteria",
+    "coliform"
+  ],
+  "author": "Jonathan Gartland",
   "license": "ISC",
   "packageManager": "pnpm@9.8.0",
   "devDependencies": {
