@@ -99,8 +99,8 @@ pnpm run check-all
 
 ## Example use in REPL:
 
-![MPN Output Example](./public/mpn_out.png)  
-![MPN Examples](./public/mpn_examples.png)
+![MPN Output Example](https://raw.githubusercontent.com/jonathan-gartland/mpn-lookup/refactor/improve-project-structure/public/mpn_out.png)  
+![MPN Examples](https://raw.githubusercontent.com/jonathan-gartland/mpn-lookup/refactor/improve-project-structure/public/mpn_examples.png)
 
 ## Example Apps that uses the mpn-lookup library
 
