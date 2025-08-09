@@ -1,6 +1,6 @@
 {
   "name": "mpn-lookup",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A TypeScript library for Most Probable Number (MPN) lookups in microbiological testing, supporting QuantiTray, QuantiTray2000, and Legionella formats",
   "main": "./dist/mpn.lookup.js",
   "module": "./dist/mpn.lookup.mjs",
