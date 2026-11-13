@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  # Lets agent workflows re-run CI after pushing (pushes with GITHUB_TOKEN don't trigger runs)
+  workflow_dispatch:
+
+# Job names are required status checks on main; renaming one needs a ruleset update.
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # Includes test/table-checksum.test.ts, which fails if any MPN table value changes
+      - run: pnpm test
+      - run: pnpm build
+
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Typecheck
+        run: pnpm type-check
+      - name: Lint
+        run: pnpm lint
+      # The commit-msg rules only run locally; make sure commitlint still accepts valid
+      # messages and rejects invalid ones after dependency updates.
+      - name: Commitlint smoke test
+        run: |
+          echo "ci: smoke test" | pnpm exec commitlint
+          if echo "not a conventional commit" | pnpm exec commitlint; then
+            echo "::error::commitlint accepted an invalid message"
+            exit 1
+          fi
