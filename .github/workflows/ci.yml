@@ -28,6 +28,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # The MPN tables are constant (CLAUDE.md). Fails any change to them or to the checksum
+      # test that guards them, whoever (or whatever agent) made it.
+      - name: Protected files unchanged
+        run: |
+          changed=$(git diff --name-only origin/main...HEAD -- mpn.data.ts test/table-checksum.test.ts)
+          if [ -n "$changed" ]; then
+            echo "::error::Protected files changed: $changed"
+            exit 1
+          fi
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
