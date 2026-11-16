@@ -23,6 +23,8 @@ jobs:
       # Includes test/table-checksum.test.ts, which fails if any MPN table value changes
       - run: pnpm test
       - run: pnpm build
+      - name: Check package contents
+        run: npm pack --dry-run
 
   verify:
     runs-on: ubuntu-latest

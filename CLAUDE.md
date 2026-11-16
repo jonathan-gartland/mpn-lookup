@@ -34,6 +34,18 @@ CI's `verify` job fails any PR that touches `mpn.data.ts` or `test/table-checksu
 
 Agents never edit `.github/`, `mpn.data.ts` or the checksum test.
 
+## Releasing
+
+Publishing is done by `.github/workflows/publish.yml` when a GitHub release is published, using
+npm trusted publishing (no token) and an `npm` environment that needs the owner's approval.
+
+1. PR that bumps `version` in `package.json` (semver: patch for fixes, minor for additions,
+   major for breaking changes); merge it.
+2. Create a release on `main` tagged `v<version>` (e.g. `gh release create v1.2.0 --generate-notes`).
+3. Approve the waiting `Publish` run.
+
+Agents never bump the version, create releases or publish.
+
 ## Public API
 
 `mpn-lookup` is used by other projects. Keep exported names, signatures and return values

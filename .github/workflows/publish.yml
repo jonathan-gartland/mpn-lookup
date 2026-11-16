@@ -1,0 +1,56 @@
+# Publishes to npm when a GitHub release is published. Uses npm trusted publishing (OIDC),
+# so there is no npm token; the "npm" environment requires the owner to approve each run.
+name: Publish
+
+on:
+  release:
+    types: [published]
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24.x
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      # Trusted publishing needs npm >= 11.5.1
+      - name: Check npm version
+        run: |
+          npm -v
+          npx --yes semver@7 -r '>=11.5.1' "$(npm -v)" >/dev/null || { echo "::error::npm $(npm -v) is too old for trusted publishing"; exit 1; }
+
+      - name: Check tag matches package.json version
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if [ "$TAG" != "v$version" ]; then
+            echo "::error::Release tag $TAG does not match package.json version $version (expected v$version)"
+            exit 1
+          fi
+
+      - run: pnpm install --frozen-lockfile
+
+      # Includes test/table-checksum.test.ts, which fails if any MPN table value changes
+      - run: pnpm test
+
+      - run: pnpm build
+
+      # Pre-releases go to the "next" dist-tag so `npm install mpn-lookup` keeps the stable version
+      - name: Publish
+        run: npm publish --access public --provenance --tag ${{ github.event.release.prerelease && 'next' || 'latest' }}
