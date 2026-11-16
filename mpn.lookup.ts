@@ -13,6 +13,14 @@
 
 import { mpn, mpn2k, mpnLegio } from './mpn.data';
 
+// Freeze the shared tables (each row and each array) at runtime so callers cannot
+// mutate lookup results and corrupt later lookups. Types are unchanged.
+mpn.forEach((row) => Object.freeze(row));
+mpn2k.forEach((row) => Object.freeze(row));
+Object.freeze(mpn);
+Object.freeze(mpn2k);
+Object.freeze(mpnLegio);
+
 /**
  * MPN (Most Probable Number) result tuple
  * [0]: Lower bound (number or string like '<1.0')
