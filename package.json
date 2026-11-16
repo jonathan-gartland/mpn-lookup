@@ -71,6 +71,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/user/repo-name.git"
-  }
+    "url": "git+https://github.com/jonathan-gartland/mpn-lookup.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jonathan-gartland/mpn-lookup/issues"
+  },
+  "homepage": "https://github.com/jonathan-gartland/mpn-lookup#readme"
 }
