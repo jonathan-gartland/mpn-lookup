@@ -11,7 +11,7 @@
   "scripts": {
     "test": "mocha --require ts-node/register 'test/**/*.test.ts'",
     "tsc": "tsc",
-    "prepare": "husky && husky install",
+    "prepare": "husky",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint-staged": "lint-staged",
     "format": "prettier --check .",
@@ -49,20 +49,13 @@
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-promise": "^6.6.0",
-    "husky": "^8.0.3",
+    "husky": "^9.1.7",
     "lint-staged": "^15.2.10",
     "mocha": "^10.7.3",
     "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3",
     "undici-types": "^6.20.0"
-  },
-  "lint-staged": {
-    "*.{ts}": [
-      "prettier --write",
-      "eslint --max-warnings 0"
-    ],
-    "*.{js,jsx,ts,tsx}": "eslint --cache --fix"
   },
   "dependencies": {
     "@commitlint/config-conventional": "^19.5.0",
