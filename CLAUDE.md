@@ -24,6 +24,16 @@ If something in the data looks wrong, report it — don't fix it.
 Code in `mpn.lookup.ts` (lookup functions, types, validation) may change, as long as every
 lookup still returns the same values.
 
+CI's `verify` job fails any PR that touches `mpn.data.ts` or `test/table-checksum.test.ts`.
+
+## Agents
+
+- `.github/workflows/claude.yml` — mention `@claude` in an issue or PR (repo owner only).
+- `.github/workflows/deps-agent.yml` — fixes failing Dependabot PRs using
+  `.claude/agents/dependency-updater.md`.
+
+Agents never edit `.github/`, `mpn.data.ts` or the checksum test.
+
 ## Public API
 
 `mpn-lookup` is used by other projects. Keep exported names, signatures and return values
