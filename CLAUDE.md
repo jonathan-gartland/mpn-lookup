@@ -36,15 +36,17 @@ Agents never edit `.github/`, `mpn.data.ts` or the checksum test.
 
 ## Releasing
 
-Publishing is done by `.github/workflows/publish.yml` when a GitHub release is published, using
-npm trusted publishing (no token) and an `npm` environment that needs the owner's approval.
+`.github/workflows/publish.yml` stages the release on npm when a GitHub release is published,
+using npm trusted publishing (no token). Nothing is public until the owner approves the staged
+version with 2FA. The npm trusted publisher allows only `npm stage publish`.
 
 1. PR that bumps `version` in `package.json` (semver: patch for fixes, minor for additions,
    major for breaking changes); merge it.
 2. Create a release on `main` tagged `v<version>` (e.g. `gh release create v1.2.0 --generate-notes`).
-3. Approve the waiting `Publish` run.
+3. When the `Publish` run finishes, approve the staged version on npmjs.com (or
+   `npm stage list mpn-lookup`, then `npm stage approve <stage-id>`).
 
-Agents never bump the version, create releases or publish.
+Agents never bump the version, create releases, or stage or approve publishes.
 
 ## Public API
 
