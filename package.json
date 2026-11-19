@@ -1,6 +1,6 @@
 {
   "name": "mpn-lookup",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Most Probable Number (MPN) lookups for IDEXX Quanti-Tray, Quanti-Tray/2000 and Legiolert water tests, with typed results and 95% confidence intervals",
   "main": "./dist/mpn.lookup.js",
   "module": "./dist/mpn.lookup.mjs",
