@@ -8,6 +8,8 @@
 Most Probable Number (MPN) lookups for IDEXX Quanti-Tray®, Quanti-Tray®/2000 and Legiolert®
 water tests, as a small, typed, zero-dependency TypeScript library.
 
+**[Live demo →](https://jonathan-gartland.github.io/mpn-lookup-nextjs/)**
+
 ## Why
 
 Labs that test drinking and recreational water for coliforms, _E. coli_, enterococci and
@@ -106,6 +108,7 @@ MAX_LEGIO_SMALL_POS; // 90
 ## Used by
 
 - [mpn-lookup-nextjs](https://github.com/jonathan-gartland/mpn-lookup-nextjs): Next.js web app
+  ([live](https://jonathan-gartland.github.io/mpn-lookup-nextjs/))
 - [MpnLookupRN](https://github.com/jonathan-gartland/MpnLookupRN): React Native mobile app
 
 ## Development
