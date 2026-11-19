@@ -9,7 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "test": "mocha --require ts-node/register 'test/**/*.test.ts'",
+    "test": "mocha --import=tsx 'test/**/*.test.ts'",
     "tsc": "tsc",
     "prepare": "husky",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
@@ -53,7 +53,7 @@
     "@types/node": "^22.7.6",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^8.10.0",
-    "chai": "^4.5.0",
+    "chai": "^6.3.0",
     "commitlint": "^21.2.4",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
@@ -66,8 +66,8 @@
     "lint-staged": "^17.6.0",
     "mocha": "^10.7.3",
     "prettier": "^3.3.3",
-    "ts-node": "^10.9.2",
     "tsup": "^8.3.5",
+    "tsx": "^4.23.15",
     "typescript": "^5.6.3",
     "undici-types": "^8.12.4"
   },
