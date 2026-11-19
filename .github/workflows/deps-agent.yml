@@ -56,6 +56,8 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # workflow_run inherits Dependabot as the actor; the action rejects bot actors unless listed
+          allowed_bots: dependabot[bot]
           prompt: |
             You are the dependency-updater agent. Follow .claude/agents/dependency-updater.md exactly.
             Branch ${{ env.BRANCH }} updates dependencies and its CI is failing. Make it pass.
