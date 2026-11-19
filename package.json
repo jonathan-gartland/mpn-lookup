@@ -9,7 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "test": "mocha --require ts-node/register 'test/**/*.test.ts'",
+    "test": "mocha --import=tsx 'test/**/*.test.ts'",
     "tsc": "tsc",
     "prepare": "husky",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
@@ -66,8 +66,8 @@
     "lint-staged": "^17.6.0",
     "mocha": "^10.7.3",
     "prettier": "^3.3.3",
-    "ts-node": "^10.9.2",
     "tsup": "^8.3.5",
+    "tsx": "^4.23.15",
     "typescript": "^5.6.3",
     "undici-types": "^8.12.4"
   },
