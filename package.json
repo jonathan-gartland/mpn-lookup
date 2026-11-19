@@ -1,7 +1,7 @@
 {
   "name": "mpn-lookup",
   "version": "1.2.0",
-  "description": "A TypeScript library for Most Probable Number (MPN) lookups in microbiological testing, supporting QuantiTray, QuantiTray2000, and Legionella formats",
+  "description": "Most Probable Number (MPN) lookups for IDEXX Quanti-Tray, Quanti-Tray/2000 and Legiolert water tests, with typed results and 95% confidence intervals",
   "main": "./dist/mpn.lookup.js",
   "module": "./dist/mpn.lookup.mjs",
   "types": "./dist/mpn.lookup.d.ts",
@@ -25,14 +25,25 @@
   "keywords": [
     "mpn",
     "most-probable-number",
-    "microbiology",
+    "idexx",
+    "quanti-tray",
     "quantitray",
+    "quanti-tray-2000",
+    "legiolert",
     "legionella",
+    "colilert",
+    "coliform",
+    "e-coli",
+    "enterococci",
     "water-testing",
-    "bacteria",
-    "coliform"
+    "water-quality",
+    "microbiology",
+    "typescript"
   ],
-  "author": "Jonathan Gartland",
+  "author": {
+    "name": "Jonathan Gartland",
+    "url": "https://github.com/jonathan-gartland"
+  },
   "license": "MIT",
   "packageManager": "pnpm@9.8.0",
   "devDependencies": {
