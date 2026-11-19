@@ -23,9 +23,9 @@ Object.freeze(mpnLegio);
 
 /**
  * MPN (Most Probable Number) result tuple
- * [0]: Lower bound (number or string like '<1.0')
- * [1]: Most probable number estimate
- * [2]: Upper bound (number or string like 'infinite')
+ * [0]: Most probable number (number or string like '<1.0')
+ * [1]: Lower 95% confidence limit
+ * [2]: Upper 95% confidence limit (number or string like 'infinite')
  */
 export type MpnResult = [string | number, number, string | number];
 
@@ -54,14 +54,14 @@ const MPN_2K_MULTIPLIER = 49;
  * Get MPN value for standard quantification based on positive well count
  * 
  * @param inCount - Number of positive wells (0-51)
- * @returns MPN result tuple [lower_bound, estimate, upper_bound] or undefined if invalid
+ * @returns MPN result tuple [mpn, lower_95_ci, upper_95_ci] or undefined if invalid
  * 
  * @example
  * ```typescript
  * const result = getQtMpn(10);
  * if (result) {
- *   const [lower, estimate, upper] = result;
- *   console.log(`MPN: ${estimate} (${lower} - ${upper})`);
+ *   const [mpn, lower, upper] = result;
+ *   console.log(`MPN: ${mpn} (95% CI ${lower} - ${upper})`);
  * }
  * ```
  */
@@ -79,14 +79,14 @@ export const getQtMpn = (inCount: number): Mpn => {
  * 
  * @param inLargePos - Large position index (0-49)
  * @param inSmallPos - Small position index (0-48)
- * @returns MPN result tuple [lower_bound, estimate, upper_bound] or undefined if invalid
+ * @returns MPN result tuple [mpn, lower_95_ci, upper_95_ci] or undefined if invalid
  * 
  * @example
  * ```typescript
  * const result = getQt2KMpn(10, 25);
  * if (result) {
- *   const [lower, estimate, upper] = result;
- *   console.log(`2K MPN: ${estimate} (${lower} - ${upper})`);
+ *   const [mpn, lower, upper] = result;
+ *   console.log(`2K MPN: ${mpn} (95% CI ${lower} - ${upper})`);
  * }
  * ```
  */

@@ -1,21 +1,31 @@
 # mpn-lookup
 
-A simple tool for when you don't want to use, or simply can't find, the various reference PDF's for the QuantiTray system.
+[![npm version](https://img.shields.io/npm/v/mpn-lookup.svg)](https://www.npmjs.com/package/mpn-lookup)
+[![CI](https://github.com/jonathan-gartland/mpn-lookup/actions/workflows/ci.yml/badge.svg)](https://github.com/jonathan-gartland/mpn-lookup/actions/workflows/ci.yml)
+[![types](https://img.shields.io/npm/types/mpn-lookup.svg)](https://www.npmjs.com/package/mpn-lookup)
+[![license](https://img.shields.io/npm/l/mpn-lookup.svg)](./LICENSE)
 
-Built with:  
-![Mocha](https://img.shields.io/badge/-Mocha-%238D6748?&style=for-the-badge&logo=Mocha&logoColor=white)
-![Chai](https://img.shields.io/badge/chai.js-323330?style=for-the-badge&logo=chai&logoColor=red)
-![TS](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![Node](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
-![ESLint](https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white)
-![Prettier](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)
+Most Probable Number (MPN) lookups for IDEXX Quanti-Tray®, Quanti-Tray®/2000 and Legiolert®
+water tests, as a small, typed, zero-dependency TypeScript library.
 
-For the work I used the following tools:
+**[Live demo →](https://jonathan-gartland.github.io/mpn-lookup-nextjs/)**
 
-![Intellij](https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
-![VSCode](https://img.shields.io/badge/-Visual%20Studio%20Code-%233178C6?style=for-the-badge&logo=visual-studio-code&logoColor=white)
-![Cursor](https://img.shields.io/badge/Cursor-000000?style=for-the-badge&logo=cursor&logoColor=white)
-![Claude](https://img.shields.io/badge/Claude-191A23?style=for-the-badge&logo=anthropic&logoColor=white)
+## Why
+
+Labs that test drinking and recreational water for coliforms, _E. coli_, enterococci and
+_Legionella pneumophila_ often use IDEXX's tray-based methods. After incubation, the analyst
+counts the positive wells and looks up the result in a printed MPN table: one table for
+Quanti-Tray, a 49 × 48 grid for Quanti-Tray/2000, and another grid for Legiolert.
+
+`mpn-lookup` puts those tables in code. You pass in the well counts and get back the MPN and
+its 95% confidence interval. Each table was transcribed from the IDEXX reference tables, and a
+checksum test fails the build if any value changes.
+
+- **Typed**: ships its own `.d.ts`, so editors show argument ranges and return types
+- **CJS + ESM** builds, no runtime dependencies
+- **Validated input**: out-of-range or non-integer counts return `undefined` and never an
+  unrelated table entry
+- **Read-only tables**: they're frozen at runtime, so callers can't mutate them by accident
 
 ## Installation
 
@@ -27,82 +37,108 @@ pnpm add mpn-lookup
 yarn add mpn-lookup
 ```
 
-## Quick Start
+## Usage
 
 ```typescript
 import { getQtMpn, getQt2KMpn, getQtLegio } from 'mpn-lookup';
 
-// Standard QuantiTray lookup (0-51 positive wells)
-const result = getQtMpn(10);
-if (result) {
-  const [lower, estimate, upper] = result;
-  console.log(`MPN: ${estimate} (${lower} - ${upper})`);
-  // Output: MPN: 5.3 (2.3 - 12.3)
-}
+// Quanti-Tray (51 wells): number of positive wells
+getQtMpn(10); // [11.1, 6.1, 20.5]   -> MPN 11.1/100 mL (95% CI 6.1–20.5)
+getQtMpn(0); //  ['<1.0', 0, 3.7]
+getQtMpn(51); // ['>200.5', 146.1, 'infinite']
 
-// QuantiTray 2000 lookup (large pos: 0-49, small pos: 0-48)
-const result2k = getQt2KMpn(10, 25);
-if (result2k) {
-  const [lower, estimate, upper] = result2k;
-  console.log(`2K MPN: ${estimate} (${lower} - ${upper})`);
-}
+// Quanti-Tray/2000 (49 large + 48 small wells): positive large, positive small
+getQt2KMpn(10, 25); // [39.7, 29.1, 52.8]
+getQt2KMpn(49, 48); // ['>2419.6', 1439.5, 'infinite']
 
-// Legionella lookup (large pos: 0-6, small pos: 0-90)
-const legioResult = getQtLegio(3, 45);
-if (legioResult !== undefined) {
-  console.log(`Legionella MPN: ${legioResult}`);
-}
+// Legiolert (6 large + 90 small wells): positive large, positive small
+getQtLegio(3, 45); // 82.8
+getQtLegio(0, 0); //  '<1'
+
+// Out-of-range or non-integer input
+getQtMpn(52); // undefined
 ```
 
-## API Reference
+Values at the ends of a table are strings such as `'<1.0'`, `'>2419.6'` or `'infinite'`,
+matching the IDEXX tables. Check the type before doing arithmetic on them.
+
+## API
 
 ### `getQtMpn(positiveWells: number): MpnResult | undefined`
 
-Returns MPN values for standard QuantiTray testing.
+Quanti-Tray (51-well) lookup.
 
-- **positiveWells**: Number of positive wells (0-51)
-- **Returns**: `[lowerBound, estimate, upperBound]` tuple or `undefined` for invalid inputs
+| Parameter       | Range  |
+| --------------- | ------ |
+| `positiveWells` | 0 – 51 |
 
-### `getQt2KMpn(largePos: number, smallPos: number): MpnResult | undefined`
+### `getQt2KMpn(largePositive: number, smallPositive: number): MpnResult | undefined`
 
-Returns MPN values for QuantiTray 2000 high-throughput testing.
+Quanti-Tray/2000 lookup.
 
-- **largePos**: Large position index (0-49)
-- **smallPos**: Small position index (0-48)
-- **Returns**: `[lowerBound, estimate, upperBound]` tuple or `undefined` for invalid inputs
+| Parameter       | Range  |
+| --------------- | ------ |
+| `largePositive` | 0 – 49 |
+| `smallPositive` | 0 – 48 |
 
-### `getQtLegio(largePos: number, smallPos: number): string | number | undefined`
+### `getQtLegio(largePositive: number, smallPositive: number): string | number | undefined`
 
-Returns MPN values for Legionella testing.
+Legiolert lookup. Returns the MPN value only, since the Legiolert table has no confidence
+interval.
 
-- **largePos**: Large position index (0-6)
-- **smallPos**: Small position index (0-90)
-- **Returns**: Single MPN value or `undefined` for invalid inputs
+| Parameter       | Range  |
+| --------------- | ------ |
+| `largePositive` | 0 – 6  |
+| `smallPositive` | 0 – 90 |
+
+### Types and constants
+
+```typescript
+// [MPN, lower 95% CI, upper 95% CI]
+type MpnResult = [string | number, number, string | number];
+type Mpn = MpnResult | undefined;
+
+MAX_QT_MPN_INDEX; // 51
+MAX_2K_LARGE_POS; // 49
+MAX_2K_SMALL_POS; // 48
+MAX_LEGIO_LARGE_POS; // 6
+MAX_LEGIO_SMALL_POS; // 90
+```
+
+## Used by
+
+- [mpn-lookup-nextjs](https://github.com/jonathan-gartland/mpn-lookup-nextjs): Next.js web app
+  ([live](https://jonathan-gartland.github.io/mpn-lookup-nextjs/))
+- [MpnLookupRN](https://github.com/jonathan-gartland/MpnLookupRN): React Native mobile app
 
 ## Development
 
+Requires Node 24 and pnpm.
+
 ```bash
-# Clone and setup
 git clone https://github.com/jonathan-gartland/mpn-lookup.git
 cd mpn-lookup
 pnpm install
 
-# Run tests
-pnpm test
-
-# Build library
-pnpm build
-
-# Run all checks (lint, type-check, test)
-pnpm run check-all
+pnpm test        # mocha + chai
+pnpm check-all   # lint, type-check, test
+pnpm build       # tsup -> dist/ (CJS, ESM, .d.ts)
 ```
 
-## Example use in REPL:
+The lookup tables in `mpn.data.ts` are treated as constant. CI rejects any change to them,
+and `test/table-checksum.test.ts` fails if any lookup result changes. If a value looks wrong,
+please [open an issue](https://github.com/jonathan-gartland/mpn-lookup/issues) with the IDEXX
+table reference instead of sending a PR.
 
-![MPN Output Example](https://raw.githubusercontent.com/jonathan-gartland/mpn-lookup/main/public/mpn_out.png)  
-![MPN Examples](https://raw.githubusercontent.com/jonathan-gartland/mpn-lookup/main/public/mpn_examples.png)
+Releases are published to npm from GitHub releases through npm trusted publishing (OIDC, no
+stored tokens), with provenance and a 2FA approval step.
 
-## Example Apps that uses the mpn-lookup library
+## Disclaimer
 
-[https://github.com/jonathan-gartland/mpn-lookup-nextjs](https://github.com/jonathan-gartland/mpn-lookup-nextjs)  
-[https://github.com/jonathan-gartland/MpnLookupRN](https://github.com/jonathan-gartland/MpnLookupRN)
+This project is not affiliated with or endorsed by IDEXX Laboratories. Quanti-Tray and
+Legiolert are trademarks of IDEXX Laboratories, Inc. Always confirm reportable results against
+the official IDEXX documentation for your test.
+
+## License
+
+[MIT](./LICENSE) © Jonathan Gartland
