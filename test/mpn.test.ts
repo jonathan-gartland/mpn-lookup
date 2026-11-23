@@ -1,7 +1,5 @@
 import { getQtMpn, getQt2KMpn, getQtLegio, type Mpn } from '../mpn.lookup';
-import { expect, assert, should } from 'chai';
-
-should();
+import { expect, assert } from 'chai';
 
 describe('MPN Lookup Library', () => {
   describe('QuantiTray Lookup (getQtMpn)', () => {
@@ -28,8 +26,8 @@ describe('MPN Lookup Library', () => {
       if (mpnVal != null) {
         expect(mpnVal).to.be.an('array');
         assert.equal(mpnVal[1], 146.1);
-        mpnVal.should.have.lengthOf(3);
-        mpnVal.should.contain('infinite');
+        expect(mpnVal).to.have.lengthOf(3);
+        expect(mpnVal).to.contain('infinite');
       }
     });
   });
